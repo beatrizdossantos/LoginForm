@@ -32,9 +32,27 @@ const init = () => {
     inputEmail.addEventListener('input', validateEmail);
     inputPassword.addEventListener('input', validatePassword);
 
+    const errorHandler = () => {
+        submitButton.classList.remove('loading');
+        submitButton.classList.remove('success');
+        submitButton.classList.add('error');
+
+        submitButton.textContent = "Erro :(";
+    }
+
+    const successHandler = () => {
+        submitButton.classList.remove('loading');
+        submitButton.classList.remove('error');
+        submitButton.classList.add('success');
+
+        submitButton.textContent = "Enviado :)";
+    }
+
     if (submitButton) {
         submitButton.addEventListener('click', (event) => {
             event.preventDefault();
+
+            submitButton.textContent = "Loading...";
 
             fetch('https://reqres.in/api/login', {
                 method: 'POST',
@@ -46,9 +64,12 @@ const init = () => {
                     password: inputPassword.value
                 })
             }).then((response) => {
-                return response.json();
-            }).then((data) => {
-                console.log(data);
+                if (response.status !== 200) {
+                    return errorHandler();
+                }
+                successHandler();
+            }).catch(() => {
+                errorHandler();
             })
         })
     }

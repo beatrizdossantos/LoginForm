@@ -9,6 +9,7 @@
     --input-error: red;
     --button-linear: linear-gradient(120deg, #E75590, #00C2CB, #E75590);
     --button-disabled: #acacac;
+    --button-success: rgb(18, 151, 107);
     --white: #ffffff;
     --black: #303030;
     --light-grey: #cfcfcf;
@@ -111,8 +112,16 @@ body {
 }
 
 .login-submit:hover {
-  background-position: right;
+    background-position: right;
+  }
+
+.login-submit.error {
+  background: var(--input-error);
 }
+
+.login-submit.success {
+    background: var(--button-success);
+  }
 
 .login-submit:disabled {
     background: var(--button-disabled);
